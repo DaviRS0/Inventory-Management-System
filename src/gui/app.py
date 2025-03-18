@@ -63,8 +63,22 @@ class InventoryApp:
     def add_item(self):
         name = self.name_entry.get()
         category = self.category_entry.get()
-        quantity = int(self.quantity_entry.get())
-        price = float(self.price_entry.get())
+        try:
+            quantity = int(self.quantity_entry.get())
+            if quantity < 0:
+                raise ValueError("Quantity must be a positive number.")
+        except ValueError as e:
+            messagebox.showerror("Invalid Input", "Quantity must be a positive integer.")
+            return
+
+        try:
+            price = float(self.price_entry.get())
+            if price < 0:
+                raise ValueError("Price must be a positive number.")
+        except ValueError as e:
+            messagebox.showerror("Invalid Input", "Price must be a positive number.")
+            return
+
         add_inventory_item(name, category, quantity, price)
         self.refresh_inventory_list()
         messagebox.showinfo("Success", "Item added successfully")
@@ -77,8 +91,22 @@ class InventoryApp:
         item_id = self.inventory_tree.item(selected_item)["values"][0]
         name = self.name_entry.get()
         category = self.category_entry.get()
-        quantity = int(self.quantity_entry.get())
-        price = float(self.price_entry.get())
+        try:
+            quantity = int(self.quantity_entry.get())
+            if quantity < 0:
+                raise ValueError("Quantity must be a positive number.")
+        except ValueError as e:
+            messagebox.showerror("Invalid Input", "Quantity must be a positive integer.")
+            return
+
+        try:
+            price = float(self.price_entry.get())
+            if price < 0:
+                raise ValueError("Price must be a positive number.")
+        except ValueError as e:
+            messagebox.showerror("Invalid Input", "Price must be a positive number.")
+            return
+
         update_inventory_item(item_id, name, category, quantity, price)
         self.refresh_inventory_list()
         messagebox.showinfo("Success", "Item updated successfully")
