@@ -89,9 +89,16 @@ class InventoryApp:
             messagebox.showwarning("Warning", "No item selected")
             return
         item_id = self.inventory_tree.item(selected_item)["values"][0]
-        delete_inventory_item(item_id)
-        self.refresh_inventory_list()
-        messagebox.showinfo("Success", "Item deleted successfully")
+        item_name = self.inventory_tree.item(selected_item)["values"][1]
+        category = self.inventory_tree.item(selected_item)["values"][2]
+        quantity = self.inventory_tree.item(selected_item)["values"][3]
+        price = self.inventory_tree.item(selected_item)["values"][4]
+        
+        confirm = messagebox.askyesno("Confirm Delete", "Are you sure you want to delete this item?")
+        if confirm:
+            delete_inventory_item(item_id)
+            self.refresh_inventory_list()
+            messagebox.showinfo("Success", "Item deleted successfully")
 
     def refresh_inventory_list(self):
         for item in self.inventory_tree.get_children():
